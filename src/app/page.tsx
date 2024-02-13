@@ -16,7 +16,7 @@ export default function Home() {
         <div className="flex gap-4 text-sm text-white/50 justify-center">
           <p>Popular places:</p>
           <div className="flex gap-4 font-bold">
-            <Link href={`/events/newyork`}>New York</Link>
+            <Link href={`/events/seattle`}>Seattle</Link>
             <Link href={"/events/istanbul"}>Istanbul</Link>
           </div>
         </div>

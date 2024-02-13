@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const routes = [
   {
@@ -31,7 +32,7 @@ const Header = () => {
               className="list-none relative h-full flex items-center"
             >
               <Link
-                className={clsx("transition", {
+                className={cn("transition", {
                   "text-white ": activePath === route.path,
                   "text-white/50 hover:text-white": activePath !== route.path,
                 })}

@@ -9,7 +9,7 @@ type EventsPageProps = {
 };
 
 const EventsPage = async ({ params: { city } }: EventsPageProps) => {
-  const response = await fetch(process.env.EVENT_API + "?city=austin");
+  const response = await fetch(process.env.EVENT_API + `?city=${city}`);
   const events: EventerEvent[] = await response.json();
 
   return (
