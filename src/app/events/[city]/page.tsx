@@ -1,6 +1,7 @@
 import EventsList from "@/components/EventsList";
 import Heading1 from "@/components/Heading1";
-import { EventerEvent } from "@/lib/types";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 type EventsPageProps = {
   params: {
@@ -8,10 +9,7 @@ type EventsPageProps = {
   };
 };
 
-const EventsPage = async ({ params: { city } }: EventsPageProps) => {
-  const response = await fetch(process.env.EVENT_API + `?city=${city}`);
-  const events: EventerEvent[] = await response.json();
-
+const EventsPage = ({ params: { city } }: EventsPageProps) => {
   return (
     <main className="min-h-screen flex flex-col items-center py-20">
       <Heading1>
@@ -23,7 +21,9 @@ const EventsPage = async ({ params: { city } }: EventsPageProps) => {
           </>
         )}
       </Heading1>
-      <EventsList events={events} />
+      <Suspense fallback={<Loading />}>
+        <EventsList city={city} />
+      </Suspense>
     </main>
   );
 };

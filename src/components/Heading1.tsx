@@ -1,12 +1,18 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 type Heading1Props = {
   children: React.ReactNode;
+  className?: string;
 };
 
-const Heading1 = ({ children }: Heading1Props) => {
+const Heading1 = ({ children, className }: Heading1Props) => {
   return (
-    <h1 className="text-5xl lg:text-7xl font-bold text-balance">{children}</h1>
+    <h1
+      className={cn("text-5xl lg:text-7xl font-bold text-balance", className)}
+    >
+      {children}
+    </h1>
   );
 };
 
