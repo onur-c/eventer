@@ -1,5 +1,7 @@
 import EventsList from "@/components/EventsList";
 import Heading1 from "@/components/Heading1";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "./loading";
 
@@ -8,6 +10,14 @@ type EventsPageProps = {
     city: string;
   };
 };
+
+export function generateMetadata({
+  params: { city },
+}: EventsPageProps): Metadata {
+  return {
+    title: `Events in ${capitalizeFirstLetter(city)} | Eventer`,
+  };
+}
 
 const EventsPage = ({ params: { city } }: EventsPageProps) => {
   return (

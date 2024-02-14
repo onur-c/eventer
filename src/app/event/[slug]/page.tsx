@@ -1,4 +1,5 @@
-import { EventerEvent } from "@/lib/types";
+import { getEvent } from "@/lib/utils";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,10 +8,17 @@ type EventPageProps = {
     slug: string;
   };
 };
-const EventPage = async ({ params: { slug } }: EventPageProps) => {
-  const response = await fetch(process.env.EVENT_API + `/${slug}`);
-  const event: EventerEvent = await response.json();
 
+export function generateMetadata({
+  params: { slug },
+}: EventPageProps): Metadata {
+  return {
+    title: `${slug.toUpperCase()} | Eventer`,
+  };
+}
+
+const EventPage = async ({ params: { slug } }: EventPageProps) => {
+  const event = await getEvent(slug);
   return (
     <main className="min-h-screen w-full">
       <div className="w-full h-96 relative overflow-hidden flex flex-col items-center justify-center">

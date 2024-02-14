@@ -1,19 +1,42 @@
-import { EventerEvent } from "@/lib/types";
+"use client";
+import type { EventerEvent } from "@prisma/client";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRef } from "react";
 
 type EventCardProps = {
   event: EventerEvent;
 };
 
+const MotionLink = motion(Link);
+
 const EventCard = ({ event }: EventCardProps) => {
+  const MotionLinkRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: MotionLinkRef,
+    offset: ["0 1", "1.4 1"],
+  });
+  const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.75, 1]);
   return (
-    <Link href={`/event/${event.slug}`}>
+    <MotionLink
+      ref={MotionLinkRef}
+      style={{
+        // @ts-ignore
+        scale: scaleProgress,
+        // @ts-ignore
+        opacity: scaleProgress,
+      }}
+      href={`/event/${event.slug}`}
+      initial={{
+        opacity: 0,
+        scale: 0.75,
+      }}
+    >
       <div
         key={event.id}
-        className="flex flex-col h-[380px] w-[320px]  rounded-md shadow-md shadow-black/20 hover:scale-105 transition overflow-hidden relative "
+        className="flex flex-col h-[380px] w-[320px] border border-white/15  rounded-md shadow-md shadow-black/20 hover:scale-105 transition overflow-hidden relative "
       >
         <Image
           src={event.imageUrl}
@@ -29,7 +52,7 @@ const EventCard = ({ event }: EventCardProps) => {
           <p className="italic">By {event.organizerName}</p>
           <h2 className="text-3xl font-bold text-center">{event.name}</h2>
         </div>
-        <div className="absolute top-2 right-0 bg-accent h-12 w-12 rounded-full text-sm flex items-center justify-center flex-col font-bold">
+        <div className="absolute top-2 right-0 bg-accent h-12 w-12 rounded-full text-xs flex items-center justify-center flex-col font-bold">
           <p>
             {new Date(event.date).toLocaleDateString("en-US", {
               day: "2-digit",
@@ -42,7 +65,7 @@ const EventCard = ({ event }: EventCardProps) => {
           </p>
         </div>
       </div>
-    </Link>
+    </MotionLink>
   );
 };
 

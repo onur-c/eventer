@@ -1,4 +1,3 @@
-import Heading1 from "@/components/Heading1";
 import Skeleton from "@/components/Skeleton";
 
 const Loading = () => {
