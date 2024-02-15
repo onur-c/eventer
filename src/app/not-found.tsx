@@ -3,9 +3,9 @@ import Link from "next/link";
 const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
-      Page could not be found.Go back by clicking&nbsp;
-      <Link className="text-cyan-700" href={"/"}>
-        here.
+      Page could not be found.Go back to&nbsp;
+      <Link className="text-accent" href={"/"}>
+        home page.
       </Link>
     </div>
   );

@@ -52,7 +52,7 @@ const EventCard = ({ event }: EventCardProps) => {
           <p className="italic">By {event.organizerName}</p>
           <h2 className="text-3xl font-bold text-center">{event.name}</h2>
         </div>
-        <div className="absolute top-2 right-0 bg-accent h-12 w-12 rounded-full text-xs flex items-center justify-center flex-col font-bold">
+        <div className="absolute top-2 right-2 backdrop-blur-xl border border-accent/25 h-12 w-12 rounded-full text-xs flex items-center justify-center flex-col font-bold">
           <p>
             {new Date(event.date).toLocaleDateString("en-US", {
               day: "2-digit",
