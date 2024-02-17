@@ -4,7 +4,6 @@ import { capitalizeFirstLetter, pageNumberSchema } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "./loading";
-import type { ReadonlyURLSearchParams } from "next/navigation";
 
 type Props = {
   params: {
@@ -13,7 +12,7 @@ type Props = {
 };
 
 type EventsPageProps = Props & {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { page: string };
 };
 
 export function generateMetadata({ params: { city } }: Props): Metadata {
@@ -22,8 +21,11 @@ export function generateMetadata({ params: { city } }: Props): Metadata {
   };
 }
 
-const EventsPage = ({ params: { city }, searchParams }: EventsPageProps) => {
-  const parsedPage = pageNumberSchema.safeParse(searchParams.page);
+const EventsPage = ({
+  params: { city },
+  searchParams: { page = "1" },
+}: EventsPageProps) => {
+  const parsedPage = pageNumberSchema.safeParse(page);
   if (!parsedPage.success) throw new Error("Invalid page number");
 
   return (
